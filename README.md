@@ -1,2 +1,2 @@
 # FullStackOpen
-Full Stack Development course from University of Helsinki
+Full Stack Development course done with University of Helsinki
