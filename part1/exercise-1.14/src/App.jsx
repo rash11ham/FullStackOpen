@@ -57,7 +57,7 @@ const App = () => {
     <div>
       <Header contents={contents.text1} />
       <p>{anecdotes[selected]}</p>
-      <p>has {votes[selected]} votes</p>
+      <Vote vote={votes[selected]}/>
       <button onClick={nextAnecdote}>next anecdote</button>
       <button onClick={votingSystem}>vote</button>
 
