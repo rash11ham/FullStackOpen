@@ -1,0 +1,124 @@
+import { useState, useEffect } from "react"
+import axios from "axios"
+import Display from "./components/Display"
+import Filter from "./components/Filter"
+import Form from "./components/Form"
+
+
+
+
+const App = () => {
+  const [persons, setPersons] = useState([])
+
+  const [newName, setNewName] = useState('')
+  //exercise 2.8
+  const [newPhone, setNewPhone] = useState('')
+
+  //exercise 2.9
+  const [filterName, setFilterName] = useState('')
+  const [foundName, setFoundName] = useState([])
+
+
+  //exercise 2.12 geting data from server
+  const hook = () => {
+    axios
+      .get("http://localhost:3001/persons")
+      .then(response => {
+        setPersons(response.data)
+        setFoundName(response.data)
+      }).catch(error => {
+        console.error("Error fetching data ", error)
+      })
+  }
+  useEffect(hook, [])
+  console.log('render', persons.length, 'persons')
+
+  const addNewPerson = (event) => {
+    //this will stop the web page default load 
+    event.preventDefault()
+
+    //exercise 2.7 code
+    const nameExists = persons.some(person => person.name === newName && person.phone === newPhone)
+    if(nameExists) {
+      alert(`${newName} is already added to phonebook`)
+      setNewName('')
+      //exercise 2.9
+      setNewPhone('')
+      return;
+    }
+
+    const newElement = {
+      name: newName,
+      //exercise 2.8
+      phone: newPhone
+    }
+    
+    axios
+      .post("http://localhost:3001/persons", newElement)
+      .then(response => {
+        setPersons(persons.concat(response.data))
+        //exercise 2.9 we need to update foundName array also since now our map method will only work with foundName
+        setFoundName(foundName.concat(response.data)) 
+        setNewName('')
+        //exercise 2.8
+        setNewPhone('')
+      })
+    
+  }
+
+  const handleNameChange = (event) => {
+    console.log(event.target.value)
+    setNewName(event.target.value)
+  }
+
+  //exercise 2.8
+  const handlePhoneChange =(event) =>{
+    console.log(event.target.value)
+    setNewPhone(event.target.value)
+  }
+
+  //exercise 2.9
+  const handleNameFilter = (event) =>{
+    console.log(event.target.value)
+    setFilterName(event.target.value)
+    const filteredName = persons.filter(person => 
+      person.name.toLowerCase().includes(event.target.value.toLowerCase()))
+
+    setFoundName(filteredName)
+  }
+
+  // exercise 2.12 handleDelete added
+
+ 
+  
+  return (
+    <div>
+      <h2>PhoneBook</h2>
+  
+      <Filter 
+        filterName={filterName} 
+        handleNameFilter={handleNameFilter}
+      />
+
+      <h2>Add new contact</h2>
+      <Form 
+        newName={newName}
+        newPhone={newPhone}
+        handleNameChange={handleNameChange}
+        handlePhoneChange={handlePhoneChange}
+        addNewPerson={addNewPerson}
+      />
+      <h2>Numbers</h2>
+      {/* exercise 2.9 replaced the persons array to foundName Array */}
+      {foundName.map(person => {
+        return (
+          <Display 
+            key={person.id} 
+            person={person} 
+          />
+        )
+      })}
+    </div>
+  )
+}
+export default App
