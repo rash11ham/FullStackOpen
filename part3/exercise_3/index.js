@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+
+
 app.use(express.json())
 
 let notes = [
@@ -20,15 +22,18 @@ let notes = [
     important: true
   }
 ]
-
+//Get home
 app.get('/', (req, res) => {
     res.send('<h1>Hello world</h1>')
 })
+
+//get all notes
 
 app.get('/api/notes', (req, res) => {
     res.json(notes)
 })
 
+//get by Id
 app.get('/api/notes/:id', (req, res) => {
     const id = req.params.id
     const note = notes.find(n => n.id === id)
