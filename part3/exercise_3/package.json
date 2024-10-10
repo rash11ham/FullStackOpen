@@ -11,6 +11,7 @@
   "author": "Rashed",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "exercise3": "file:",
     "express": "^4.21.0"
   },
