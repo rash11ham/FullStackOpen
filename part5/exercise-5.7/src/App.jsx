@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
@@ -160,12 +161,18 @@ const App = () => {
       <Togglable buttonLabel="new blog" ref={blogFormRef}>
         <BlogForm
           newBlogObject={createBlog}
-
         />
       </Togglable>
+      
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog
+          key={blog.id}
+          blog={blog}          
+        />
+    
+        
       )}
+      
     </div>
   }
 
