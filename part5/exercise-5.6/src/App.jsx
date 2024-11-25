@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 //step 5 import login services
@@ -14,15 +14,14 @@ const App = () => {
   const [password, setPassword] = useState('')
   // step 6 add user state
   const [user, setUser] = useState(null)
-
-  //exercise 5.3 
-  //const [newBlog, setNewBlog] = useState('')
   
-
   // exercise 5.4
   const [message, setMessage] = useState('')
-  
 
+  // const [title, setTitle] = useState('')
+  // const [author, setAuthor] = useState('')
+  // const [url, setUrl] = useState('')
+  
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
@@ -108,6 +107,10 @@ const App = () => {
   
   const createBlog = newBlogObject => {
     // exercise 5.5 step 6 modification to recieve the new blog object from the blog form
+    //console.log(blogObject)
+    //exercise 5.6 last step by adding this our blog form will hide after creating a new blog
+
+    blogFormRef.current.toggleVisibility()
     blogService
       .create(newBlogObject)
       .then(addNewBlog => {
@@ -125,8 +128,9 @@ const App = () => {
         }, 5000)
       })
   }
-  //end of the step for exercise 5.3
 
+  //end of the step for exercise 5.3
+  
   //exercise 5.4 
   const Notification = ({ message }) => {
     if (message === "") return ""
@@ -140,18 +144,23 @@ const App = () => {
     </div>
   }
 
+   //exercise 5.6 step 1 add Ref and import useRef hook
+  const blogFormRef = useRef()
   const blogsDisplay = () => {
+   
     return <div>
       <h1>blogs</h1>
       {/* exercise 5.4 */}
       <Notification message={message}/>
       
       <p>user logged in: <strong>{user.username}</strong> <button onClick={handleLogout}>logout</button></p>
-      <br />
+
       {/* exercise 5.5 step 3 modifing the form to togglable and form as a child */}
-      <Togglable buttonLabel="new blog">
+      {/* exercise 5.6 step 2 add ref */}
+      <Togglable buttonLabel="new blog" ref={blogFormRef}>
         <BlogForm
           newBlogObject={createBlog}
+
         />
       </Togglable>
       {blogs.map(blog =>

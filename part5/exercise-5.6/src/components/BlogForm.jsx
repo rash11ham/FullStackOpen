@@ -1,22 +1,25 @@
 //exercise 5.5 step 1
 import { useState } from 'react'
 const BlogForm = ({ newBlogObject }) => {
-    // exercise 5.5 step 4 move the state from app.jsx to here
+    //exercise 5.5 step 4 move the state from app.jsx to here
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
     const [url, setUrl] = useState('')
     //exercise 5.5 step 5 create a blog object and pass it as props
     const createBlog = (event) => {
         event.preventDefault()
-        newBlogObject = {
+        console.log(title, author, url)
+        newBlogObject({
             title: title,
             author: author,
             url: url
-        }
+        })
+        console.log(newBlogObject)
         setTitle('')
         setAuthor('')
         setUrl('')
     }
+
     return (
         <div>
             <h2>Create a new blog</h2>
@@ -25,7 +28,7 @@ const BlogForm = ({ newBlogObject }) => {
                     Title: 
                     <input
                         value={title}
-                        onChange={event => setTitle(event.target.value)}
+                        onChange={event => setTitle(event.target.value)}   
                     />
                 </div>
                 <div>
