@@ -9,11 +9,13 @@ const Blog = ({ blog, toggleLike }) => {
     margin: 5
   }
   
+  
 
   return (
     <div style={hideStyle}>
       <div>
         Title: {blog.title}
+        <div>Author: {blog.author}</div> 
         <button onClick={() => setShow(!show)}>{show ? 'hide':'view'}</button>
       </div>
       {show && (
@@ -22,7 +24,7 @@ const Blog = ({ blog, toggleLike }) => {
           <div>likes: {blog.likes}
             <button onClick={toggleLike}>like</button>
           </div>
-          <div>Author: {blog.author}</div>        
+          <div>Added By: {blog.user.name}</div>    
         </div>
       )}
       

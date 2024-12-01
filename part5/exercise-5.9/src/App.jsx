@@ -131,9 +131,12 @@ const App = () => {
   }
 
   //exercise 5.8 updateing likes 
-  const toggleLikes = (id) => {
+  const toggleLike = async (id) => {
     const blog = blogs.find(b => b.id === id)
-    const changeBlog = { ...blog, likes: blog.likes + 1 }
+    const changeBlog = {
+      ...blog,
+      likes: blog.likes + 1
+    }
     console.log(changeBlog)
     blogService
       .update(id, changeBlog)
@@ -186,7 +189,7 @@ const App = () => {
         <Blog
           key={blog.id}
           blog={blog}
-          toggleLike={()=> toggleLikes(blog.id)}
+          toggleLike={() => toggleLike(blog.id)}
         /> 
       )}  
     </div>
