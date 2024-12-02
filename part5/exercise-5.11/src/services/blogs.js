@@ -22,13 +22,16 @@ const getAll = () => {
 }
 
 const update = async (id,updateBlog) => {
-  const request = await axios.put(`${baseUrl}/${id}`, updateBlog)
-  return request.then(response=> response.data)
+  const response = await axios.put(`${baseUrl}/${id}`, updateBlog)
+  return response.data
 }
 
 const remove = async (id) => {
-  const request =  axios.delete(`${baseUrl}/${id}`)
-  return request.then(response => response.data)
+  const config = {
+    headers: { Authorization: token },
+  };
+  const response = await axios.delete(`${baseUrl}/${id}`, config)
+  return response.data
   
 }
 

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-const Blog = ({ blog, toggleLike }) => {
+const Blog = ({ blog, toggleLike, deleteBlog }) => {
   const [show, setShow] = useState(false)
   const hideStyle = {
     paddingTop: 10,
@@ -9,8 +9,6 @@ const Blog = ({ blog, toggleLike }) => {
     margin: 5
   }
   
-  
-
   return (
     <div style={hideStyle}>
       <div>
@@ -25,7 +23,7 @@ const Blog = ({ blog, toggleLike }) => {
             <button onClick={toggleLike}>like</button>
           </div>
           <div>Added By: {blog.user.name}</div> 
-          <button>remove</button>
+          <button onClick={deleteBlog}>remove</button>
         </div>
       )}
       
