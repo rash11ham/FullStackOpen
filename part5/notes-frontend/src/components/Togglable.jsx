@@ -3,6 +3,9 @@
 // - useImperativeHandle hook makes toggleVisibility function available out side the component
 import { useState, forwardRef, useImperativeHandle } from 'react'
 
+//part 5-b step 1 after exercises | PropTypes (npm install prop-types) then import
+import PropTypes from 'prop-types'
+
 //const Togglable = (props) => {  -- step 10 modified to below forwardRef()
   const Togglable = forwardRef((props, refs) => {
   const [visible, setVisible] = useState(false)
@@ -12,12 +15,17 @@ import { useState, forwardRef, useImperativeHandle } from 'react'
 
   const toggleVisibility = () => {
     setVisible(!visible)
+  }
+  useImperativeHandle(refs, () => {
+    return {
+      toggleVisibility
     }
-    useImperativeHandle(refs, () => {
-      return {
-        toggleVisibility
-      }
-    })
+  });
+  //part 5-b step2 after exercise button label is mandatory now
+  Togglable.propTypes = {
+      buttonLabel: PropTypes.string.isRequired
+  }
+    
   
 
   return (
@@ -25,12 +33,14 @@ import { useState, forwardRef, useImperativeHandle } from 'react'
       <div style={hideLoginForm}>
         <button onClick={toggleVisibility}>{props.buttonLabel}</button>
       </div>
-      <div style={showLoginForm}>
+      <div style={showLoginForm} className='togglableContent'>
         {props.children}
         <button onClick={toggleVisibility}>cancel</button>
       </div>
     </div>
   );
-})
+  })
+
+  Togglable.displayName = 'Togglable'
 
 export default Togglable
