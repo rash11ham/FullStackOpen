@@ -33,7 +33,7 @@ import PropTypes from 'prop-types'
       <div style={hideLoginForm}>
         <button onClick={toggleVisibility}>{props.buttonLabel}</button>
       </div>
-      <div style={showLoginForm}>
+      <div style={showLoginForm} className='togglableContent'>
         {props.children}
         <button onClick={toggleVisibility}>cancel</button>
       </div>
