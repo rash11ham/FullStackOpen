@@ -80,10 +80,9 @@ const App = () => {
         setTimeout(() => {
           setErrorMessage("")
         }, 5000)
-        setNewNote('')
       }).catch(error => {
         setErrorMessage(
-          `Note '${noteObject.content}' cannot be less than five characters`
+          `Note: '${noteObject.content}' cannot be less than five characters`
         )
         setTimeout(() => {
           setErrorMessage("")
@@ -198,7 +197,7 @@ const App = () => {
     
   return (
     <div>
-      <h1>Notes</h1>
+      <h1 data-testid='notes'>Notes</h1>
       <Notification message={errorMessage} />
 
       {/* part 5 step 9 */}
